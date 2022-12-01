@@ -1,10 +1,10 @@
 # Advent of Code 2022
 
-Having a crack at [Advent of Code](https://adventofcode.com/) in 2022, gonna try doing it in vanilla TypeScript for practice's sake.
+Having a crack at [Advent of Code](https://adventofcode.com/) in 2022.
 
 Let's see how we go, I usually give up after two or three, and to be honest I'm rather busy at the moment!
 
-I am going to attempt this year's problems in vanilla TypeScript for the sake of both pain and exploration.
+I am going to attempt this year's problems in vanilla TypeScript, as an exercise in validating I know how to do things in that language without an overcooked web framework.
 
 
 ## Running these solutions
