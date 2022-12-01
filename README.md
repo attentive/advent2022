@@ -20,11 +20,16 @@ $ npm run solve -- 1
 > node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm solve.ts 1
 
 Advent of Code 2022: Day 1
-Loading solver …
+Loading solver from 1/solution.ts …
 Loading input from 1/input.txt …
 Solving …
-Result:
+Result of Part 1:
+
 66186
+
+Result of Part 2:
+
+196804
 ```
 
 
