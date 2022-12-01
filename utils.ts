@@ -28,8 +28,8 @@ async function readLines(day: number): Promise<string[]> {
 }
 
 // Dynamically import solution
-async function importSolution(day: number): Promise<{ default: { solve: (input: string[]) => Promise<number[]> } }> {
-    return await import(`./${day}/solution.ts`);
+async function importSolution(day: number): Promise<(input: string[]) => Promise<number[]>> {
+    return (await import(`./${day}/solution.ts`)).default.solve;
 }
 
 export { readInput, readLines, importSolution };
