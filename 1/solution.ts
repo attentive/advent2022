@@ -1,15 +1,17 @@
 async function solve(input: string[]): Promise<number[]> {
 
-    const foodItemsByElf = input.reduce((groups: number[][], line) => {
-        if (line === '') {
-            groups.push([]);
+    const caloriesByElf = input.reduce((elves: number[][], calories) => {
+        if (calories === '') {
+            elves.push([]);
         } else {
-            groups[groups.length - 1].push(Number(line));
+            const elf = elves[elves.length - 1];
+            const caloriesForFoodItem = Number(calories);
+            elf.push(caloriesForFoodItem);
         }
-        return groups;
+        return elves;
     }, [[]]);
 
-    const calorieTotalsByElf = foodItemsByElf.map((foodItems) => foodItems.reduce((a, i) => a + i, 0));
+    const calorieTotalsByElf = caloriesByElf.map((elfCalories) => elfCalories.reduce((a, i) => a + i, 0));
 
     // Get the maximum calorie total carried by any elf
     const part1 = Math.max.apply(null, calorieTotalsByElf);
