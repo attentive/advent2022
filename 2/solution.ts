@@ -1,5 +1,3 @@
-import { SocketAddress } from "net";
-
 // Items in the game
 enum Item {
     Rock = 1,
