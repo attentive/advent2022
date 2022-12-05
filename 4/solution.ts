@@ -1,4 +1,4 @@
-async function solve(input: string[]): Promise<number[]> {
+async function solve(input: string[]): Promise<unknown[]> {
     // Note we need to filter that empty last line of the input …
     const parsedInput = input.filter(line => Boolean(line))
         .map(line => /(\d+)-(\d+),(\d+)-(\d+)/.exec(line) || []) // 31-31,32-40

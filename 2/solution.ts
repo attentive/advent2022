@@ -54,7 +54,7 @@ const PART2_ITEMS = {
 };
 
 
-async function solve(input: string[]): Promise<number[]> {
+async function solve(input: string[]): Promise<unknown[]> {
 
     // Note we need to filter that empty last line of the input …
     const filteredInput = input.map(round => /([A-C]) ([X-Z])/.exec(round) || [])

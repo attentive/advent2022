@@ -15,7 +15,7 @@ const itemPriority = (itemType: string): number => {
     else throw new Error(`Invalid item type: ${itemType}`);
 }
 
-async function solve(input: string[]): Promise<number[]> {
+async function solve(input: string[]): Promise<unknown[]> {
 
     const rucksacks = input.filter(line => line)
         .map((line) => ({
