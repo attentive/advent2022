@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { isEmptyOrWhitespace } from "../utils";
 
 type Crate = string;
@@ -10,20 +11,23 @@ type Move = {
     to: number;
 };
 
-const parseFloor = (floorLines: string[]): Floor => {
-    // Remove 1 … 9 indices and read stacks from bottom to top
-    floorLines = floorLines.reverse().slice(1);
+function parseFloor(floorLines: string[]): Floor {
+    // Read stacks from bottom to top
+    floorLines = floorLines.reverse();
+
+    // Get the number of crate stacks from the first line which has the form `1 2 3 … N`
+    const stackCount = floorLines[0].match(/\d+/g)!.length;
 
     // Create empty Floor - note the use of .from, not .fill
-    const floor: Floor = Array.from(Array(9), () => [] as Stack);
+    const floor: Floor = [...Array(stackCount)].map(() => [] as Stack);
 
-    // Load lines into Floor structure
-    floorLines.forEach((line) => {
-        [...Array(Math.ceil(line.length / 4)).keys()].forEach((stack) => {
-            const token = line.slice(stack * 4, Math.min(stack * 4 + 4, line.length));
-            if (!isEmptyOrWhitespace(token)) {
-                const crate = token.slice(1, 2) as Crate;
-                floor[stack].push(crate);
+    // Load crates into Floor structure
+    floorLines.slice(1).forEach((line) => {
+
+        // Lines that look like eg `[H] [W]     [P] [W]     [H] [N] [N]`
+        line.match(/(\[([A-Z])\] ?|(\s{3,4}))/g)!.forEach((crate, stack) => {
+            if (!isEmptyOrWhitespace(crate)) {
+                floor[stack].push(crate.slice(1, 2)); // `H`,`W` etc
             }
         });
     });
@@ -31,14 +35,14 @@ const parseFloor = (floorLines: string[]): Floor => {
     return floor;
 }
 
-const parseMoves = (moveLines: string[]): Move[] =>
-    moveLines.map((line) => {
-        const [_, quantity, from, to] = /^\s*move (\d+) from (\d+) to (\d+)\s*$/g.exec(line) || [];
-        return { quantity: parseInt(quantity), from: parseInt(from), to: parseInt(to) } as Move;
+function parseCraneMoves(moveLines: string[]): Move[] {
+    return moveLines.map((line) => {
+        const [quantity, from, to] = line.match(/\d+/g)!.map(Number);
+        return { quantity, from, to } as Move;
     });
+}
 
-
-const moveCrates = (floor: Floor, { quantity, from, to }: Move, isCrateMover9001 = false): Floor => {
+function moveCrates(floor: Floor, { quantity, from, to }: Move, isCrateMover9001 = false): Floor {
     // Note stacks are 0-indexed, but moves are 1-indexed
     const [fromStack, toStack] = [floor[from - 1], floor[to - 1]];
     const crates = fromStack.splice(fromStack.length - quantity, quantity);
@@ -51,13 +55,13 @@ const moveCrates = (floor: Floor, { quantity, from, to }: Move, isCrateMover9001
     }
 
     return floor;
-} 
+}
 
 async function solve(input: string[]): Promise<unknown[]> {
     const firstEmptyLine = input.findIndex(isEmptyOrWhitespace);
     const [floorLines, moveLines] = [input.slice(0, firstEmptyLine), input.slice(firstEmptyLine + 1).filter(line => Boolean(line))];
 
-    const moves = parseMoves(moveLines);
+    const moves = parseCraneMoves(moveLines);
 
     // Note the use of Object.assign to create a copy of the floorLines array
     const part1Floor = parseFloor(Object.assign([], floorLines));
