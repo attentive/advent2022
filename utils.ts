@@ -22,9 +22,9 @@ async function readLines(day: number): Promise<string[]> {
     const inputData = await readInput(day) ?? '';
 
     // This version of the regex skips empty lines …
-    // return inputData.split(/[\r\n]+/);
+    return inputData.split(/[\r\n]+/);
 
-    return inputData.split(/\r\n/);
+    // return inputData.split(/\r\n/);
 }
 
 // Dynamically import solution
