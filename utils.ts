@@ -21,16 +21,18 @@ async function readInput(day: number): Promise<string | undefined> {
 async function readLines(day: number): Promise<string[]> {
     const inputData = await readInput(day) ?? '';
 
-    // This version of the regex skips empty lines …
-    return inputData.split(/[\r\n]+/);
-
-    // return inputData.split(/\r\n/);
+    return inputData.split(/\r\n/);
 }
 
 // Dynamically import solution
-async function importSolution(day: number): Promise<(input: string[]) => Promise<number[]>> {
+async function importSolution(day: number): Promise<(input: string[]) => Promise<unknown[]>> {
     return (await import(`./${day}/solution.ts`)).default.solve;
 }
 
-export { readInput, readLines, importSolution };
+// Check if a line is empty
+function isEmptyOrWhitespace(str: string): boolean {
+    return str === null || str.match(/^\s*$/) !== null;
+}
+
+export { readInput, readLines, importSolution, isEmptyOrWhitespace };
 
