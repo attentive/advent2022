@@ -9,6 +9,8 @@ I am going to attempt this year's problems in vanilla TypeScript, as an exercise
 
 ## Running these solutions
 
+Set yourself up with an `npm install`.
+
 Use the `solve` script with the Day as an argument (after `--` to pass it through correctly).
 
 Example for Day 1:
