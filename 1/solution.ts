@@ -1,4 +1,4 @@
-async function solve(input: string[]): Promise<number[]> {
+async function solve(input: string[]): Promise<unknown[]> {
 
     const caloriesByElf = input.reduce((elves: number[][], calories) => {
         if (calories === '') {
