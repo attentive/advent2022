@@ -18,6 +18,7 @@ async function solve(input: string[]): Promise<unknown[]> {
 
     // No line processing in this case
     const signal = input.join('');
+    
     const [part1, part2] = [findMarker(signal, PACKET_MARKER), findMarker(signal, MESSAGE_MARKER)];
 
     return [part1, part2];
